@@ -6,7 +6,6 @@ def get_mac_address():
     list_interfaces = psutil.net_if_addrs()
     list_interfaces.pop('lo')
     if len(list_interfaces) > 0:
-        # function programmer master
         list_interfaces = chain.from_iterable(list_interfaces.values())
         list_mac_address = [
             interface.address for interface in list_interfaces
