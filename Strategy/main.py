@@ -6,6 +6,7 @@ Buyer = namedtuple('Buyer', 'name points member')
 class ItemToBuy(object):
     """This is a cart
     """
+
     def __init__(self, name, value, ammount):
         self.name = name
         self.value = value
@@ -26,6 +27,7 @@ def best_promo(order):
 class Order():
     """This is a order buy
     """
+
     def __init__(self, buyer, cart, promo=best_promo):
         self.buyer = buyer
         self.cart = list(cart)
