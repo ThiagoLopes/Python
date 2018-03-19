@@ -10,7 +10,7 @@ from .forms import TaskFilter, SprintFilter
 User = get_user_model()
 
 
-class DefaultsMixin:
+class BaseViewSet:
 
     authentication_classes = (authentication.BasicAuthentication,
                               authentication.TokenAuthentication)
@@ -22,23 +22,22 @@ class DefaultsMixin:
     paginate_by_param = 'page_size'
     max_paginage_by = 100
 
-    filter_backends = (
-        DjangoFilterBackend,
-        filters.SearchFilter,
-        filters.OrderingFilter
-    )
+    filter_backends = (DjangoFilterBackend, filters.SearchFilter,
+                       filters.OrderingFilter)
 
 
-
-class SprintViewSet(DefaultsMixin, viewsets.ModelViewSet):
+class SprintViewSet(BaseViewSet, viewsets.ModelViewSet):
     queryset = Sprint.objects.order_by('end')
     serializer_class = SprintSerializer
     filter_class = SprintFilter
     search_fields = ('name', )
-    ordering_fields = ('end', 'name', )
+    ordering_fields = (
+        'end',
+        'name',
+    )
 
 
-class TaskViewSet(DefaultsMixin, viewsets.ModelViewSet):
+class TaskViewSet(BaseViewSet, viewsets.ModelViewSet):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
     filter_class = TaskFilter
@@ -46,7 +45,7 @@ class TaskViewSet(DefaultsMixin, viewsets.ModelViewSet):
     ordering_fields = ('name', 'order', 'started', 'due', 'completed')
 
 
-class UserViewSet(DefaultsMixin, viewsets.ReadOnlyModelViewSet):
+class UserViewSet(BaseViewSet, viewsets.ReadOnlyModelViewSet):
     lookup_field = User.USERNAME_FIELD
     lookup_url_kwarg = User.USERNAME_FIELD
     queryset = User.objects.order_by(User.USERNAME_FIELD)
