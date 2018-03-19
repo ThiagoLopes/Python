@@ -7,7 +7,6 @@ User = get_user_model()
 
 
 class SprintFilter(django_filters.FilterSet):
-
     end_min = django_filters.DateFilter(name='end', lookup_expr='gte')
     end_max = django_filters.DateFilter(name='end', lookup_expr='lte')
 
@@ -20,7 +19,6 @@ class SprintFilter(django_filters.FilterSet):
 
 
 class TaskFilter(django_filters.FilterSet):
-
     backlog = django_filters.NumberFilter(name='sprint')
 
     class Meta:

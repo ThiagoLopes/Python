@@ -11,7 +11,6 @@ User = get_user_model()
 
 
 class BaseViewSet:
-
     authentication_classes = (authentication.BasicAuthentication,
                               authentication.TokenAuthentication)
 

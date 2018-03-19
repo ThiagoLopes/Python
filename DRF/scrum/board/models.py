@@ -13,7 +13,6 @@ class Sprint(models.Model):
 
 
 class Task(models.Model):
-
     STATUS_TODO = 1
     STATUS_IN_PROGRESS = 2
     STATUS_TESTING = 3
