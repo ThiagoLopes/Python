@@ -5,7 +5,7 @@ from django.contrib.auth import get_user_model
 
 from .models import Sprint, Task
 from .serializers import SprintSerializer, TaskSerializer, UserSerializer
-from .forms import TaskFilter, SprintFilter
+from .filters import TaskFilter, SprintFilter
 
 User = get_user_model()
 
