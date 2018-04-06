@@ -1,1 +1,12 @@
 * This is a project using django-rest-framework
+
+** how to run?
+
+run:
+
+1. `pipenv install`
+2. create `.env` in project add `SECRET_KEY` setting
+3. `python manage.py migrate`
+4. `python manage.py runserver`
+
+enjoy.
