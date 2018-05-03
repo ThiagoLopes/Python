@@ -1,0 +1,114 @@
+* Logging
+
+Meus estudos sobre loggins usando a aula #48 do _/dunossauro_
+
+** O que são logs?
+
+O log é um medio de rastrear eventos que acontecem quando algum software
+é executado. O desenvolvedor do software adiciona chamadas ao seu
+código para indicar que certo evento ocorreram.
+
+Os eventos também têm uma importância que o desenvolvedor atribui
+ao evento; a importância também pode ser chamada de nível ou gravidade.
+
+Exemplo:
+Imagine que exista uma tela de login, por exemplo. Imagine também que
+você precise saber sempre quem logou em um determinado hórario.
+Por exemplo, quais foram pessoas que logaram no sistema durate o horário de almoço?
+
+** Qual a importância de usar logs?
+
+Os log fornecem uma explicação simples de algum evento "qualquer" no sistema.
+Ou seja, você consegue visualizar estados de determinadas execuções do sistema.
+
+*Lembra quando você queria saber algo dentro de um determinado código e colocou vários prints?*
+Os logs além de separarem em níveis diferentes certos tipos de mensagem, podem
+ser usados em casos especiais, até mesmo em auditorias de sistema.
+
+** Níveis de logging
+
+| Level      | Quando usar?                                                          |
+|------------+-----------------------------------------------------------------------|
+| *DEBUG*    | Informações mais detalhadas, quando estamos buscando problemas        |
+| *INFO*     | Confirmar que as coisas estão funcionando como esperado               |
+| *WARNING*  | Informações de que algo inesperado aconteceu ( mas tudo funciona bem) |
+| *ERROR*    | Quando algo inesperado ocorre e o programa não consegue executar algo |
+| *CRITICAL* | Um erro grave que impediu o sistema de executar algo                  |
+
+Por default o nível do do logger é warning, ou seja se usarmos eventos com menor
+prioridade que *WARNING* não serão exibidos.
+
+** Formatar loggin
+
+Atributos para facilitar escrita do log
+
+| Atributo  | Formato       | Descrição                            |
+|-----------+---------------+--------------------------------------|
+| asctime   | %(asctime)s   | Mostra a hora do log (d/m/a-h:m:s)   |
+| filename  | %(filename)s  | O arquivo em que a chamada foi feita |
+| levelname | %(levelname)s | Nivel do log                         |
+| message   | %(message)s   | Mesangem logada                      |
+
+E muitos outros...
+
+** Nivel de abstração
+
+|                                  |
+| Logger (getLogger)               |
+|                                  |
+| Level  Handler  Formater  Filter |
+| _____________________________    |
+
+
+*** Logger
+
+A classa principal da lib loggin, *logger* tem o seu trabalho dividio em
+três partes.
+
+1. Ela emite métodos para que os logger possam escrever em runtime
+2. Determina quais as mensagens dever ser filtradas ( pode default usa os leveis)
+3. Gerencia os loggers enviando mensagens para os handlers interessados em receber aquelas mensagens
+
+Os métodos mais usando são divididos em duas categorias.
+
+| Configuração  | Envio de mensagem        |
+|---------------+--------------------------|
+| setLevel      | degub                    |
+| addHandler    | info                     |
+| removeHandler | warning                  |
+| addFilter     | error                    |
+| removeFilter  | critical                 |
+|               | log (interface genérica) |
+|               | exception                |
+
+Você nao precisa chamar eles, a bibliotecas tem valores defaults para todos
+
+*** Handler
+
+Handlers são manipuladores para o output dos loggers, ou seja, um logger pode ter
+mais de um handler e um handler pode estar em mais de um logger; Eles são independentes.
+
+Imagine que haja a necessidade de enviar log para a tela e para arquivos ao mesmo tempo!
+Um Logger pode ter dois handlers associados.
+
+Do mesmo modo que vários loggers podem compartilhar o mesmo handler que escreve o arquivo.
+
+*CASO* você precisa de um manipulador diferente dos presentes na biblioteca
+padrão, voce pode herdar Loggin.Handler e criar o seu próprio, ela é ABC
+
+*** Formater
+
+Os formatadores são o final da cadeia, ele é chamado pelo handler para formatar
+as mensagens
+
+Formatter.__init__(fmt=None, datefmt=None, style='%')
+
+
+** Usando arquivos de configuração para configurar logger
+
+exemplo: simple_loggin.ini
+
+PS: Outros logger herdam do *root*
+
+
+_fonte: github/dunossauro_
